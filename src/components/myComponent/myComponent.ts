@@ -6,7 +6,7 @@ export enum Attribute {
 	'gender' = 'gender',
 	'area' = 'area',
 	'position' = 'position',
-	'timeInCompany' = 'timeIncompany',
+	'timeincompany' = 'timeincompany',
 	'experience' = 'experience',
 }
 
@@ -18,7 +18,7 @@ class Worker extends HTMLElement {
 	gender?: string;
 	area?: string;
 	position?: string;
-	timeInCompany?: number;
+	timeincompany?: number;
 	experience?: number;
 
 	constructor() {
@@ -35,7 +35,7 @@ class Worker extends HTMLElement {
 			gender: null,
 			area: null,
 			position: null,
-			timeIncompany: null,
+			timeincompany: null,
 			experience: null,
 		};
 		return Object.keys(attrs);
@@ -51,8 +51,8 @@ class Worker extends HTMLElement {
 				this.age = newValue ? Number(newValue) : undefined;
 				break;
 
-			case Attribute.timeInCompany:
-				this.timeInCompany = newValue ? Number(newValue) : undefined;
+			case Attribute.timeincompany:
+				this.timeincompany = newValue ? Number(newValue) : undefined;
 				break;
 
 			case Attribute.experience:
@@ -73,16 +73,17 @@ class Worker extends HTMLElement {
 	render() {
 		if (this.shadowRoot) {
 			this.shadowRoot.innerHTML = `
+      <link rel="stylesheet" href="./components/myComponent/myComponent.css">
       <section>
-      <img src={this.image}></img>
+      <img src=${this.image}></img>
       <h1>${this.name}</h1>
-      <p>${this.uid}</p>
-      <p>${this.age}</p>
-      <p>${this.gender}</p>
-      <p>${this.area}</p>
-      <p>${this.position}</p>
-      <p>${this.timeInCompany}</p>
-      <p>${this.experience}</p>
+      <p><b>ID:</b> ${this.uid}</p>
+      <p><b>Edad:</b> ${this.age} años</p>
+      <p><b>Género:</b> ${this.gender}</p>
+      <p><b>Área: </b>${this.area}</p>
+      <p><b>Posición:</b> ${this.position}</p>
+      <p><b>Tiempo en la compañía:</b> ${this.timeincompany}</p>
+      <p><b>Experiencia: </b>${this.experience}</p>
       </section>
       `;
 		}

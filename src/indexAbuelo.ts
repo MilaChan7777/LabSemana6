@@ -4,6 +4,7 @@ import MyWorker, { Attribute } from './components/myComponent/myComponent';
 
 class AppContainer extends HTMLElement {
 	worker: MyWorker[] = [];
+	filteredData: MyWorker[] = [];
 
 	constructor() {
 		super();
@@ -18,9 +19,12 @@ class AppContainer extends HTMLElement {
 			workerCard.setAttribute(Attribute.gender, user.gender);
 			workerCard.setAttribute(Attribute.area, String(user.jobDetails.area));
 			workerCard.setAttribute(Attribute.position, String(user.jobDetails.position));
-			workerCard.setAttribute(Attribute.timeInCompany, String(user.jobDetails.experience));
+			workerCard.setAttribute(Attribute.timeincompany, String(user.jobDetails.timeInCompany));
+			workerCard.setAttribute(Attribute.experience, String(user.jobDetails.experience));
 			this.worker.push(workerCard);
 		});
+
+		this.filterWorkers();
 	}
 
 	connectedCallback() {
@@ -29,10 +33,17 @@ class AppContainer extends HTMLElement {
 
 	render() {
 		if (this.shadowRoot) {
-			this.worker.forEach((workers) => {
+			this.filteredData.forEach((workers) => {
 				this.shadowRoot?.appendChild(workers);
 			});
 		}
+	}
+
+	filterWorkers() {
+		this.filteredData = this.worker.filter((worker) => {
+			const id = parseInt(worker.getAttribute(Attribute.uid) as string); //parseInt convierte el valor del string a un número entero
+			return id % 2 === 0;
+		});
 	}
 }
 
